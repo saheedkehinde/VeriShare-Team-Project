@@ -162,7 +162,7 @@ export default function WalletLoginPage() {
             <p className="text-sm text-white/70">
               Connect and sign a one-time challenge to log in.
             </p>
-            {/* @ts-expect-error Server components don't infer client child types */}
+          
             <div>
               {/* Client component */}
               <ConnectWalletClient />
