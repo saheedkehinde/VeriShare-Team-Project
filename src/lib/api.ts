@@ -252,7 +252,23 @@ export async function getComplianceReport(
   ownerAddress: string,
   periodStart?: string,
   periodEnd?: string
-): Promise<ApiResult<{ message: string; report: unknown }>> {
+): Promise<ApiResult<{ message: string; report: {
+  metrics: {
+    credentials: {
+      total: number;
+      active: number;
+      revoked: number;
+    };
+    shares: {
+      made: number;
+      expired: number;
+    };
+    consent: {
+      approved: number;
+      denied: number;
+    };
+  };
+} }>> {
   const qs = new URLSearchParams({
     ownerAddress,
     ...(periodStart ? { periodStart } : {}),

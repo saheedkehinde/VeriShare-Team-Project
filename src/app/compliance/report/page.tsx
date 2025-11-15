@@ -4,12 +4,30 @@ import Protected from "@/components/Protected";
 import GradientOrbs from "@/components/GradientOrbs";
 import { getComplianceReport, getMe } from "@/lib/api";
 
+type Report = {
+  metrics: {
+    credentials: {
+      total: number;
+      active: number;
+      revoked: number;
+    };
+    shares: {
+      made: number;
+      expired: number;
+    };
+    consent: {
+      approved: number;
+      denied: number;
+    };
+  };
+};
+
 export default function ComplianceReportPage() {
   const [owner, setOwner] = useState("");
   const [start, setStart] = useState<string>("");
   const [end, setEnd] = useState<string>("");
   const [status, setStatus] = useState("");
-  const [report, setReport] = useState<unknown | null>(null);
+  const [report, setReport] = useState<Report | null>(null);
 
   useEffect(() => {
     (async () => {
@@ -52,27 +70,27 @@ export default function ComplianceReportPage() {
                 <label className="block text-sm text-white/70">Owner</label>
                 <input
                   value={owner}
-                  onChange={(e) => setOwner(e.target.value)}
-                  className="mt-2 w-full rounded-md bg-white/10 border border-white/10 px-3 py-2 text-white"
+                  readOnly
+                  className="mt-2 w-full rounded-md bg-white/10 border border-white/10 px-3 py-2 text-white cursor-not-allowed"
                 />
               </div>
               <div>
                 <label className="block text-sm text-white/70">
-                  Start (ISO)
+                  Start Date
                 </label>
                 <input
+                  type="date"
                   value={start}
                   onChange={(e) => setStart(e.target.value)}
-                  placeholder="e.g. 2025-01-01"
                   className="mt-2 w-full rounded-md bg-white/10 border border-white/10 px-3 py-2 text-white"
                 />
               </div>
               <div>
-                <label className="block text-sm text-white/70">End (ISO)</label>
+                <label className="block text-sm text-white/70">End Date</label>
                 <input
+                  type="date"
                   value={end}
                   onChange={(e) => setEnd(e.target.value)}
-                  placeholder="e.g. 2025-01-31"
                   className="mt-2 w-full rounded-md bg-white/10 border border-white/10 px-3 py-2 text-white"
                 />
               </div>
